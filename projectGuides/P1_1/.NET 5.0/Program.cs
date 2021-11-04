@@ -7,13 +7,27 @@ namespace P1_1
     class Program
     {
         // TODO: put your code in the solve function and have it return the solution in the form of a byte array
-        public static byte[] Solve(byte[] inputBytes, byte[] bmpBytes)
+        public static byte[] Solve(string input, byte[] bmpBytes)
         {
             // Put your code in here
             // bitwise XOR function 0xFF ^ 0xAB
             // Look up BitArray in C# made from byte[]
-            BitArray inputbits = new BitArray(inputBytes);
+            int counter = 26; //start at the 27th byte
+            string[] bmpBytesStrArr = BitConverter.ToString(bmpBytes).Split("-");
             byte[] exampleByteArray = new byte[bmpBytes.Length]; // just a placeholder so that the code works from scatch without errors
+            exampleByteArray = bmpBytes;
+            string[] inputStrArr = input.Split(' ');
+            foreach (string s in inputStrArr)
+            {
+                byte inputByte = Convert.ToByte(s,16);
+                string bitString = Convert.ToString(inputByte, 2).PadLeft(8, '0');
+                for (int i = 0; i < 8; i = i + 2)
+                {
+                    byte inputBitsByte = Convert.ToByte(Convert.ToString(bitString[i]) + Convert.ToString(bitString[i + 1]),2);
+                    exampleByteArray[counter] = (byte)(inputBitsByte ^ bmpBytes[counter]);
+                    counter += 1;
+                }                
+            }
             return exampleByteArray;
         }
 
@@ -76,16 +90,14 @@ namespace P1_1
                 0x00,0x00,0x00
             };
 
-            // get the input from the command line
             string input = getInputFromCommandLine(args);
-
         
             // TODO: Convert input string to an array of bytes (inputBytes)
             Convert.ToByte("F8", 16); // This is an example of how to convert a string such as "F8" to a byte. (base 16 because F8 is Hexadecimal)
 
             byte[] inputBytes = new byte[10]; // this line is just a placeholder. You will need to start with the input string and convert the string to a byte array (in this example that byte array is named inputBytes)
             // TODO: put your code in the solve function and have it return the solution in the form of a byte array 
-            byte[] solution = Solve(inputBytes, bmpBytes); 
+            byte[] solution = Solve(input, bmpBytes); 
 
             // format output
             string formatForAutograder = BitConverter.ToString(solution).Replace("-", " "); // This line formats the byte array into a string with spaces between the bytes instead of "-" between the bytes
