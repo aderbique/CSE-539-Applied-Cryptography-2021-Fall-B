@@ -29,21 +29,36 @@ namespace P1_2
         {
             // Feel free to remove/ keep any of the code in this function. Some of the code is from the instructions.
             // Helpful code from the instructions:
-            DateTime dt = DateTime.Now;
-            TimeSpan ts = dt.Subtract(new DateTime(1970, 1, 1));
+            //DateTime dt = DateTime.Now;
+            //TimeSpan ts = dt.Subtract(new DateTime(1970, 1, 1));
             // how to cast a TimeSpan to an int
-            // int start = (int)ts.TotalMinutes;
+
+            DateTime startDate = new DateTime(2020, 07, 03, 11, 00, 00);  
+            DateTime   endDate = new DateTime(2020, 07, 04, 11, 00, 00);
+            TimeSpan        ts = endDate.Subtract(startDate);
+            TimeSpan   tsEpoch = startDate.Subtract(new DateTime(1970, 1, 1));
+            int       startMin = (int)tsEpoch.TotalMinutes;
+            int         endMin = startMin + (int)ts.TotalMinutes;
+            
+            for (int i = startMin; i <= endMin; i++)
+            {
+                Random rng = new Random((i));
+                byte[] key = BitConverter.GetBytes(rng.NextDouble());
+                string resultCipher = Encrypt(key, plaintext);
+                if (resultCipher == ciphertext)
+                {
+                    return Convert.ToDouble(i);
+                }
+            }
+            return -1;
 
             // string secretString = "";
-            Random rng = new Random((int)ts.TotalMinutes);
-            byte[] key = BitConverter.GetBytes(rng.NextDouble());
+            
         
             // Console.WriteLine(Encrypt(key, secretString));
 
             // Hint: We are finding the seed that was used to make the key (and we only return the seed once we find the correct key that was used to encrypt the plaintext)
             // The weakness is that C#'s Random((int)ts.TotalMinutes)) function is pseudo-random. Basically this means if we know the seed (int)ts.TotalMinutes then we can build the same random sequence used to make the key
-
-            return -1;
         }
 
         // The Encrypt function that your friend used
@@ -63,15 +78,15 @@ namespace P1_2
         // The autograder will grade the return value of this function.
         public static double P1_2(string[] args)
         {
-            // string plaintext = "Hello World";
-            // string ciphertext = "RgdIKNgHn2Wg7jXwAykTlA==";
-            // dotnet run "Hello World" "RgdIKNgHn2Wg7jXwAykTlA=="
+             //string plaintext = "Hello World";
+             //string ciphertext = "RgdIKNgHn2Wg7jXwAykTlA==";
+             //dotnet run "Hello World" "RgdIKNgHn2Wg7jXwAykTlA=="
 
-            // string plaintext = args[0];
-            // string ciphertext = args[1];
-            Tuple<string, string> commandlineInputs = GetInputFromCommandLine(args);
-            string plaintext = commandlineInputs.Item1;
-            string ciphertext = commandlineInputs.Item2;
+             //string plaintext = args[0];
+             //string ciphertext = args[1];
+             Tuple<string, string> commandlineInputs = GetInputFromCommandLine(args);
+             string plaintext = commandlineInputs.Item1;
+             string ciphertext = commandlineInputs.Item2;
 
             // TODO: put your solution code in the solve function and have it return the seed. In the example, the seed returned was 26564295
             double solution = Solve(plaintext, ciphertext);
