@@ -30,11 +30,13 @@
 * [P3](./projectGuides/P3)
 * [P4](./projectGuides/P4)
 
+## 📚 📚 Midterm Study Guide
+* [google doc](https://docs.google.com/document/d/1HukkHY4lf2Ay-wC4Z6x-LSDaR7jV1hYjBYOs5w4lDMU/edit?usp=sharing)
 
 ## :heavy_plus_sign: :bread: Extra Credit
 * [E1 (1%)](./projectGuides/extraCredit/E1/README.md)
 * [E2 (2%)](./projectGuides/extraCredit/E2/README.md)
-* [E3 (3%)](./projectGuides/extraCredit/E3/README.md)
+* [E3 (2%)](./projectGuides/extraCredit/E3/README.md)
 
 ## :white_check_mark: :white_check_mark: Submitting Your Project
 

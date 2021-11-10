@@ -38,9 +38,9 @@ namespace P2
 
             // optional hint: review converting a string into a byte array (byte[]) and the reverse, converting a byte array (byte[]) into a string BitConverter.ToString(exampleByteArray).Replace("-", " ");
 
-            // This code will convert a string to a byte array
-            string example = "Edward Snowden";
-            byte[] exampleByteArray = Encoding.UTF8.GetBytes(example);
+            // The next two lines are an example of code that can convert a string to a byte array
+            // string example = "Edward Snowden";
+            // byte[] exampleByteArray = Encoding.UTF8.GetBytes(example);
 
             // passwords have to be made only using alphanumeric characters, so you can make random passwords using any of the characters in the string provided below (note: The starter code doesn't include lowercase just for simplicity but you can include lowercase as well. )
             // string alphanumeric_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

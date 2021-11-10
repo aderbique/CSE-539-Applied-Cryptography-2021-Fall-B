@@ -13,6 +13,7 @@ namespace P3
             // Make sure you are familiar with the System.Numerics.BigInteger class and how to use some of the functions it has (Parse, Pow, ModPow, Subtract, ToByteArray, etc.)
             
             // optional hint: for encryptiong/ decryption with AES, use google or another search engine to find the microsoft documentation on Aes (google this--> System.Security.Cryptography.Aes)
+            // you can copy and paste the example code from microsoft documentation if you want as well. https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.aes?view=net-5.0
 
             // optional hint: here is an example of how to convert the IV input string to a byte array https://gist.github.com/GiveThanksAlways/df9e0fa9e7ea04d51744df6a325f7530
 
