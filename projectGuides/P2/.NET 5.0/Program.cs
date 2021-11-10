@@ -1,3 +1,6 @@
+/* 
+Author: austin@derbique.org
+*/
 using System;
 using System.Linq;
 using System.Security.Cryptography;
@@ -23,9 +26,86 @@ namespace P2
             }
             return input;
         }
+
+        public static string CreateModifiedMD5(string input, string salt, int bytesLength)
+        ///shamelessly stolen from https://stackoverflow.com/a/24031467
+        /// Takes in an input string, salt, and length. Appends the salt to the input, 
+        ///hashes, and then returns a string of bytes to the length defined by bytesLength
+        {
+            // Use input string to calculate MD5 hash
+            using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+            {
+                byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+                byte[] saltBytes = new byte[] {Convert.ToByte(salt,16)};
+                byte[] saltedInputBytes = new byte[inputBytes.Length + saltBytes.Length];
+                System.Buffer.BlockCopy(inputBytes, 0, saltedInputBytes, 0, inputBytes.Length);
+                System.Buffer.BlockCopy(saltBytes, 0, saltedInputBytes, inputBytes.Length, saltBytes.Length);                                
+                byte[] hashBytes = md5.ComputeHash(saltedInputBytes);
+                byte[] reducedBytes = hashBytes.Take(bytesLength).ToArray();
+                return BitConverter.ToString(reducedBytes);
+            }
+        }
+        public static string GeneratePassword(string validChars, int length)
+        {
+            StringBuilder res = new StringBuilder();
+            Random rnd = new Random();
+            while (0 < length--)
+            {
+                res.Append(validChars[rnd.Next(validChars.Length)]);
+            }
+            return res.ToString();
+        }
+
+        public static bool compareHashes(string hash1, string hash2, int bytesToCompare)
+        {
+            byte[] hashBytes1 = System.Text.Encoding.ASCII.GetBytes(hash1);
+            byte[] hashBytes2 = System.Text.Encoding.ASCII.GetBytes(hash2);
+            for (int i = 0; i < bytesToCompare; i++)
+            {
+                if (hashBytes1[i] != (hashBytes2[i]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         
         public static string P2(string[] args)
         {
+            string salt = args[0];
+            const string validChars = "abcdefghijqlmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            int length = 10;
+            int bytesLength = 5;
+
+/*          //used for testing
+            string s = "C5";
+            //string p1 = "AQJCMW0DGL";
+            string p1 = "Hello World!";
+            string hs = CreateModifiedMD5(p1, s, 5);
+            Console.WriteLine(hs);
+            return "something";
+
+*/          
+            Dictionary<string, string> hashTable = new Dictionary<string, string>();            
+            while (true)
+            {
+                string password = GeneratePassword(validChars, length);
+                string hash     = CreateModifiedMD5(password, salt, bytesLength);
+                if (!hashTable.ContainsKey(hash))
+                {
+                    hashTable.Add(hash, password);
+                }
+                else
+                {  
+                    //check to make sure it's not the same password twice
+                    if (password != hashTable[hash])
+                    {
+                    Console.WriteLine(password + "," + hashTable[hash]);
+                    return password + "," + hashTable[hash];
+                    }
+                }
+            } 
+            
             // Some helpful hints:
             // The main idea is to concateneate the salt to a random string, 
             // then feed that into the hashFunction, 
@@ -51,13 +131,13 @@ namespace P2
             // TODO: Employ the Birthday Paradox to find a collision in the MD5 hash function
 
             // These were given as en example, you are going to have to find two passwords that have matching salted hashes with your code and then output them for the autograder to see
-            string password1 = "AQJCMW0DGL";
-            string password2 = "I95ORWB1A7";
-            string P2_answer = password1 + "," + password2;
-            Console.WriteLine(P2_answer); // you can still print things to the console. The autograder will ignore this, it will only test the return value of this function
+            //string password1 = "AQJCMW0DGL";
+            //string password2 = "I95ORWB1A7";
+            //string P2_answer = password1 + "," + password2;
+            //Console.WriteLine(P2_answer); // you can still print things to the console. The autograder will ignore this, it will only test the return value of this function
             
             // return the solution to the autograder
-            return P2_answer; // autograder will grade this value to see if it is correct
+            //return P2_answer; // autograder will grade this value to see if it is correct
         }
 
         static void Main(string[] args)
