@@ -1,5 +1,7 @@
 /* 
 Author: austin@derbique.org
+This is published to GH for educational purposes only. Academic dishonesty will not be tolerated.
+Permission to use this code for course credit is strictly PROHIBITED.
 */
 using System;
 using System.Linq;
