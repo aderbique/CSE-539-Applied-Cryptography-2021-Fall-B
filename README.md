@@ -3,7 +3,7 @@
 <!-- ## Binder -->
 <!-- [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/GiveThanksAlways/CSE-539-Applied-Cryptography-2021-Fall-B/HEAD) -->
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/GiveThanksAlways/interactive/HEAD)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/GiveThanksAlways/interactive/if-you-are-reading-this-just-know-that-I-am-proud-of-you-ha-ha)
 
 <!-- ![image](https://user-images.githubusercontent.com/7727291/136446547-cd2f51a7-5e42-46d0-b275-8c8b9c820fe5.png) -->
 
